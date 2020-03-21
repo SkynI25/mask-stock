@@ -1,4 +1,4 @@
-// import 'regenerator-runtime/runtime'
+import 'regenerator-runtime/runtime'
 
 (function() {
     let options = {
@@ -6,9 +6,6 @@
         timeout: 5000,
         maximumAge: 0
     };
-
-    let count = 0;
-    let lat = 0;
 
     function calcTime(date) {
         let now = new Date() - new Date(date);
@@ -21,11 +18,9 @@
     }
 
     function maskCondition(storeDatas, index) {
-        // mask-text 생성
         let newMaskText = document.createElement('div');
         newMaskText.classList.add(`mask-text`);
 
-        // mask-text > p, mask-current light, mask-remain  생성
         let newMaskTextP = document.createElement('p');
         newMaskTextP.textContent = "마스크 재고 : ";
 
@@ -61,7 +56,6 @@
         newStockDate.textContent = `입고 시간 : ${calcTime(storeDatas.stores[index].stock_at)}전`;
         newStockDate.classList.add(`stock-date`);
 
-        // mask-text에 mask-text > p, mask-current light, mask-remain 대입
         newMaskText.appendChild(newMaskTextP);
         newMaskText.appendChild(newMaskCurrent);
         newMaskText.appendChild(newMaskRemain);
@@ -71,20 +65,17 @@
     }
 
     function addMaskContent(storeDatas, index) {
-        // mask-content 생성
         let newMaskContent = document.createElement('div');
         newMaskContent.classList.add(`mask-content`);
 
         let newMaskText = maskCondition(storeDatas, index);
 
-        // mask-content에 mask-text, mask-current light 대입
         newMaskContent.appendChild(newMaskText);
 
         return newMaskContent;
     }
 
     function addNewElement(storeDatas, index) {
-        // pharmacyN, 약국이름, 주소, mask-content 생성
         let newElement = document.createElement('li');
         newElement.classList.add(`pharmacy${index+1}`);
         newElement.classList.add(`pharmacy-item`);
@@ -103,14 +94,12 @@
         let newAddr = document.createElement('p');
         newAddr.textContent = storeDatas.stores[index].addr;
 
-        // newElement 에 약국이름, 주소 대입
         newStoreHeader.appendChild(newStoreName);
         newStoreHeader.appendChild(newUpdateDate);
         newElement.appendChild(newStoreHeader);
         newElement.appendChild(newAddr);
 
         let newMaskContent = addMaskContent(storeDatas, index);
-        // pharmacyN에 mask-content 대입
         newElement.appendChild(newMaskContent);
 
         return newElement;
@@ -134,24 +123,15 @@
 
     async function success(pos) {
         let crd = pos.coords;
-        lat = crd.latitude-count;
-    
-        console.log('Your current position is:');
-        console.log(`Latitude : ${crd.latitude}`);
-        console.log(`Longitude: ${crd.longitude}`);
-        console.log(`More or less ${crd.accuracy} meters.`);
-        console.log(`count : ${count}`);
         
         let selectBox = document.querySelectorAll('#distance')[0];
         let distnace = selectBox.options[selectBox.selectedIndex].value
 
         let result = await fetch(`
-        https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${lat.toFixed(6)}&lng=${crd.longitude.toFixed(6)}&m=${distnace}`)
+        https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${crd.latitude.toFixed(6)}&lng=${crd.longitude.toFixed(6)}&m=${distnace}`)
         .then(res => res.text());
         removeStores();
         addStores(result);
-        
-        count += 0.001;
     }
     
     function error(err) {
