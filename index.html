@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Document</title>
+    <link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="title">
+                <h1><a href="#">마스크 재고</a></h1>
+            </div>
+            <div class="category">
+                <ul>
+                    <li><a href="#">약국</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="pharmacy-total">
+            <h2 class="pharmacy-count">약국 : 300개</h2>
+            <div class="pharmacy-data">
+                <div class="select-distance">
+                    <select id="distance">
+                        <option value="500">500m</option>
+                        <option value="1000">1000m</option>
+                        <option value="1500">1500m</option>
+                        <option value="2000">2000m</option>
+                        <option value="3000">3000m</option>
+                        <option value="4000">4000m</option>
+                        <option value="5000">5000m</option>
+                    </select>
+                </div>
+                <button id="update">업데이트</button>
+            </div>
+        </div>
+        <ul class="pharmacy-list">
+            <p>현재 주변의 마스크 판매처를 찾으시려면 위에서 거리를 선택 후 업데이트 버튼을 클릭해주세요.<br>
+            (이 후 위치 접근을 허용해주셔야 합니다. 위치 정보는 절대 저장되거나 악용되지 않습니다.)</p>
+            <!-- <li class="phamacy1 pharmacy-item">
+                <div class="store-header">
+                    <h1 class="store-name">서남온누리 약국</h1>
+                    <p class="update-date">업데이트 시간 : 5분전</p>
+                </div>
+                <p>주소 : 서울 특별시 양천구 오목로 38길 7</p>
+                <div class="mask-content">
+                    <div class="mask-text">
+                        <p>마스크 재고 : </p>
+                        <div class="mask-current green"></div>
+                        <p class="mask-remain">(100개 이상)</p>
+                        <p class="stock-date">입고 시간 : 20시간전</p>
+                    </div>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="copyright">
+                <p>Copyright &copy; SkynI25</p>
+            </div>
+        </div>
+    </footer>
+    <script src="index.js"></script>
+</body>
+</html>
