@@ -1,4 +1,4 @@
-import 'regenerator-runtime/runtime'
+// import 'regenerator-runtime/runtime'
 
 (function() {
     let options = {
@@ -6,6 +6,9 @@ import 'regenerator-runtime/runtime'
         timeout: 5000,
         maximumAge: 0
     };
+
+    let lat = 0;
+    let lng = 0;
 
     function calcTime(date) {
         let now = new Date() - new Date(date);
@@ -105,9 +108,33 @@ import 'regenerator-runtime/runtime'
         return newElement;
     }
 
+    function isAvailableStock(data) {
+        return data.filter(s => s.remain_stat !== 'break').length;
+    }
+
+    function sortingDataByType(data) {
+        let stockMap = new Map([
+            ['plenty', 5],
+            ['some', 4],
+            ['few', 3],
+            ['empty', 2],
+            ['break', 1]
+        ]);
+
+        if(document.querySelectorAll('#stock')[0].checked) {
+            data.stores = data.stores.sort((a,b) => {
+                return stockMap.get(a.remain_stat) - stockMap.get(b.remain_stat) < 0 ?
+                1 : stockMap.get(a.remain_stat) - stockMap.get(b.remain_stat) > 0 ? -1 : 0
+            });
+        }
+
+        return data;
+    }
+
     function addStores(data) {
-        let storeDatas = JSON.parse(data);
-        let pharmacyCount = document.querySelectorAll('.content .pharmacy-total h2')[0].textContent + storeDatas.count + '개 지점';
+        let storeDatas = sortingDataByType(JSON.parse(data));
+        let pharmacyCount = document.querySelectorAll('.content .pharmacy-total h2')[0].textContent + '총 ' + storeDatas.count + '개 지점';
+        pharmacyCount += `\n(현재 : ${isAvailableStock(storeDatas.stores)}개 지점 보유)`
         document.querySelectorAll('.content .pharmacy-total h2')[0].textContent = pharmacyCount;
         for(let i = 0; i < storeDatas.stores.length; i++) {
             if(storeDatas.stores[i].remain_stat != null && storeDatas.stores[i].stock_at !== null && storeDatas.stores[i].created_at !== null) {
@@ -125,12 +152,14 @@ import 'regenerator-runtime/runtime'
 
     async function success(pos) {
         let crd = pos.coords;
+        lat = crd.latitude;
+        lng = crd.longitude;
         
         let selectBox = document.querySelectorAll('#distance')[0];
         let distnace = selectBox.options[selectBox.selectedIndex].value
 
         let result = await fetch(`
-        https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${crd.latitude.toFixed(6)}&lng=${crd.longitude.toFixed(6)}&m=${distnace}`)
+        https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${lat.toFixed(6)}&lng=${lng.toFixed(6)}&m=${distnace}`)
         .then(res => res.text());
         removeStores();
         addStores(result);

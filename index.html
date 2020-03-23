@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Document</title>
-    <link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
+    <title>Mask-Stock</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,7 +21,7 @@
     </header>
     <div class="content">
         <div class="pharmacy-total">
-            <h2 class="pharmacy-count">약국 : </h2>
+            <h2 class="pharmacy-count">약국 : 총 300개 지점<br/>(현재 : 30개 지점 보유)</h2>
             <div class="pharmacy-data">
                 <div class="select-distance">
                     <select id="distance">
@@ -35,6 +34,12 @@
                         <option value="5000">반경 5000m</option>
                     </select>
                 </div>
+                <div class="sort-type">
+                    <input type="radio" id="distance" name="sort_type" value="distance" checked="checked">
+                    <label for="distance">거리순</label>
+                    <input type="radio" id="stock" name="sort_type" value="stock">
+                    <label for="stock">재고순</label>
+                </div>
                 <button id="update">위치 및 재고 업데이트</button>
             </div>
         </div>
@@ -46,7 +51,7 @@
     <footer class="footer">
         <div class="footer-inner">
             <div class="copyright">
-                <p>Copyright &copy; SkynI25</p>
+                <p>Copyright &copy; <a href="https://github.com/SkynI25">SkynI25</a></p>
             </div>
         </div>
     </footer>

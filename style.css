@@ -26,22 +26,12 @@ body {
     clear: both;
 }
 
-.title {
-    float: left;
-    width: auto;
-}
-
-.category {
-    float: right;
-    width: auto;
-}
-    
 .category ul {
     margin: 0;
     padding: 0;
     list-style: none
 }
-    
+
 .category li a {
     display: block;
     padding: 10px 20px 10px 20px;
@@ -54,30 +44,35 @@ body {
     background-color: #eeeeee;
 }
 
-.category ul:after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-.category li {
-    float: left;
-    width: auto;
-}
-
 .pharmacy-count {
     float: left;
-    width: 65%;
+    width: 50%;
+    white-space: pre-wrap;
 }
 
 .pharmacy-data {
     float: left;
-    width: 35%;
+    width: 50%;
+}
+
+.sort-type {
+    margin-left: 12px;
+    float: left;
+    margin-top: 25px;
+}
+
+label {
+    font-size: 15px;
+    padding: 0px 1em 0px 0px;   
+}
+
+input[type=radio],
+input.radio {
+    margin: 2px 0 0 2px;
 }
 
 .select-distance {
-    margin-left: 35%;
-    margin-right: 5%;
+    margin-left: 10%;
     float: left;
     margin-top: 25px;
     width: auto;
@@ -196,6 +191,10 @@ body {
     background-image: radial-gradient(gray, transparent);
 }
 
+.mask-text .mask-remain {
+    width: 170px;
+}
+
 .copyright p {
     margin: 0;
     color: #666666;
@@ -213,10 +212,70 @@ body {
     margin-left: 20px;
 }
 
-@media (max-width: 570px) {
+@media (max-width: 335px) {
+    .category li a {
+        padding: 10px 7px;
+        font-size: 12px;
+    }
+    .category li {
+        width: 17%;
+    }
+    .pharmacy-total .pharmacy-count {
+        font-size: 18px;
+    }
+    .pharmacy-data .select-distance {
+        padding-bottom: 0;
+    }
+    .sort-type {
+        float: none;
+        margin-bottom: 25px;
+    }
+    #update {
+        float: none;
+    }
+    .mask-text .mask-remain {
+        width: 100% !important;
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 320px) {
+    .title {
+        float: left;
+        width: auto;
+    }
+    .category {
+        float: right;
+        width: auto;
+    }
+    
+    .category ul:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    
+    .category li {
+        float: left;
+        width: auto;
+    }
+}
+
+@media (max-width: 590px) {
+    p {
+        font-size: 14px;
+    }
+    .title h1 a {
+        font-size: 25px;
+    }
     .pharmacy-count {
-        float : none;
-        width : 200px;
+        font-size: 20px;
+    }
+    .sort-type {
+        margin-left: 0;
+    }
+    .pharmacy-data .sort-type {
+        margin-right: 5%;
     }
     .select-distance {
         float: none;
@@ -227,26 +286,20 @@ body {
         margin: 0;
         float: none;
     }
+    .pharmacy-list > p {
+        font-size: 15px;
+    }
+    .mask-text p {
+        width: 95px;
+    }
 }
 
 @media (max-width: 725px) {
-    p {
-        font-size: 14px;
-    }
-    .title h1 a {
-        font-size: 25px;
-    }
     .pharmacy-count {
         width: 60%;
     }
     .pharmacy-data {
         width: 40%;
-    }
-    .pharmacy-data .select-distance {
-        margin-left: 5%;
-    }
-    .pharmacy-list > p {
-        font-size: 15px;
     }
     .store-name {
         font-size: 25px;
@@ -258,9 +311,6 @@ body {
         padding: 0;
         margin: 0;
         font-size: 12px;
-    }
-    .mask-text p {
-        width: 95px;
     }
     .mask-text .mask-remain {
         width: auto;
@@ -277,9 +327,31 @@ body {
     }
 }
 
-@media (max-width: 950px) {
+@media (max-width: 800px) {
+    .pharmacy-count {
+        float: none;
+        width: 100%;
+    }
+    .pharmacy-data {
+        float: none;
+        width: 100%;
+    }
+    #update {
+        float: left;
+    }
+    /* .select-distance {
+        float: none;
+        margin: 0 !important;
+        padding-bottom: 20px;
+    } */
+}
+
+@media (max-width: 1000px) {
     .select-distance {
-        margin-left: 15%;
+        margin-left: 0;
+    }
+    .sort-type {
+        margin-right: 0;
     }
 }
 
@@ -291,5 +363,8 @@ body {
     }
     .pharmacy-list {
         width: 100%;
+    }
+    .select-distance {
+        margin-left: 0;
     }
 }
