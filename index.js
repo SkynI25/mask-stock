@@ -1,4 +1,4 @@
-import 'regenerator-runtime/runtime'
+// import 'regenerator-runtime/runtime'
 
 (function() {
     let options = {
@@ -9,12 +9,12 @@ import 'regenerator-runtime/runtime'
 
     function calcTime(date) {
         let now = new Date() - new Date(date);
-        if((now / (1000 * 60)) < 60) {
-            return `${Math.floor(now / (1000 * 60))}분`;
-        } else if((now / (1000 * 60)) >= 60) {
+        if((now / (1000 * 60 * 60 * 24)) >= 1) {
+            return `${Math.floor(now / (1000 * 60 * 60 * 24))}일`;
+        } else if((now / (1000 * 60 * 60)) >= 1) {
             return `${Math.floor(now / (1000 * 60 * 60))}시간`;
         }
-        return `${Math.floor(now / (1000 * 60 * 60 * 24))}일`;
+        return `${Math.floor(now / (1000 * 60))}분`;
     }
 
     function maskCondition(storeDatas, index) {
@@ -110,8 +110,10 @@ import 'regenerator-runtime/runtime'
         let pharmacyCount = document.querySelectorAll('.content .pharmacy-total h2')[0].textContent + storeDatas.count + '개 지점';
         document.querySelectorAll('.content .pharmacy-total h2')[0].textContent = pharmacyCount;
         for(let i = 0; i < storeDatas.stores.length; i++) {
-            let newElement = addNewElement(storeDatas, i);
-            document.querySelectorAll('.pharmacy-list')[0].appendChild(newElement);
+            if(storeDatas.stores[i].remain_stat != null && storeDatas.stores[i].stock_at !== null && storeDatas.stores[i].created_at !== null) {
+                let newElement = addNewElement(storeDatas, i);
+                document.querySelectorAll('.pharmacy-list')[0].appendChild(newElement);
+            }
         }
     }
 
