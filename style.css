@@ -213,7 +213,7 @@ body {
     margin-left: 20px;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 570px) {
     .pharmacy-count {
         float : none;
         width : 200px;
@@ -229,12 +229,18 @@ body {
     }
 }
 
-@media (max-width: 615px) {
+@media (max-width: 725px) {
     p {
         font-size: 14px;
     }
     .title h1 a {
         font-size: 25px;
+    }
+    .pharmacy-count {
+        width: 60%;
+    }
+    .pharmacy-data {
+        width: 40%;
     }
     .pharmacy-data .select-distance {
         margin-left: 5%;
@@ -271,7 +277,7 @@ body {
     }
 }
 
-@media (max-width: 840px) {
+@media (max-width: 950px) {
     .select-distance {
         margin-left: 15%;
     }
