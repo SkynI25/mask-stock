@@ -136,6 +136,11 @@ input.radio {
     width: 30%;
 }
 
+.addr-link {
+    text-decoration: none;
+    color: #000000;
+}
+
 .store-header:after {
     content: "";
     display: block;

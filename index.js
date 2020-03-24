@@ -95,7 +95,11 @@ import 'regenerator-runtime/runtime'
         newUpdateDate.classList.add(`update-date`);
 
         let newAddr = document.createElement('p');
-        newAddr.textContent = storeDatas.stores[index].addr;
+        let addrLink = document.createElement('a');
+        addrLink.textContent = storeDatas.stores[index].addr;
+        addrLink.href = `https://search.naver.com/search.naver?ie=UTF-8&query=${encodeURI(storeDatas.stores[index].addr + storeDatas.stores[index].name)}`;
+        addrLink.classList.add(`addr-link`);
+        newAddr.appendChild(addrLink);
 
         newStoreHeader.appendChild(newStoreName);
         newStoreHeader.appendChild(newUpdateDate);
