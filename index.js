@@ -148,7 +148,7 @@ import 'regenerator-runtime/runtime'
         return sortedArr;
     }
 
-    function sortingDataByType(data) {
+    function sortByStock(data) {
         let stockMap = new Map([
             ['plenty', 5],
             ['some', 4],
@@ -157,13 +157,30 @@ import 'regenerator-runtime/runtime'
             ['break', 1]
         ]);
 
+        let storesMap = new Map();
+        for(let i = 0; i < data.length; i++) {
+            storesMap.set(i, stockMap.get(data[i].remain_stat));
+        }
+        let sortedMap = [...storesMap.entries()].sort((a,b) => {
+            return a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0;
+        });
+        let sortedArr = [];
+        for(let i = 0; i < sortedMap.length; i++) {
+            let index = sortedMap[i][0];
+            sortedArr.push(data[index]);
+        }
+
+        return sortedArr;
+    }
+
+    function sortingDataByType(data) {
+        let onSaleStores = data.stores.filter(s => {
+            return s.remain_stat != null && s.stock_at !== null && s.created_at !== null
+        })
         if(document.querySelectorAll('#stock')[0].checked) {
-            data.stores = data.stores.sort((a,b) => {
-                return stockMap.get(a.remain_stat) - stockMap.get(b.remain_stat) < 0 ?
-                1 : stockMap.get(a.remain_stat) - stockMap.get(b.remain_stat) > 0 ? -1 : 0
-            });
+            data.stores = sortByStock(onSaleStores);
         } else {
-            data.stores = sortByDistance(data.stores);
+            data.stores = sortByDistance(onSaleStores);
         }
 
         return data;
@@ -175,10 +192,8 @@ import 'regenerator-runtime/runtime'
         pharmacyCount += `\n(현재 : ${isAvailableStock(storeDatas.stores)}개 지점 보유중)`
         document.querySelectorAll('.content .pharmacy-total h2')[0].textContent = pharmacyCount;
         for(let i = 0; i < storeDatas.stores.length; i++) {
-            if(storeDatas.stores[i].remain_stat != null && storeDatas.stores[i].stock_at !== null && storeDatas.stores[i].created_at !== null) {
-                let newElement = addNewElement(storeDatas, i);
-                document.querySelectorAll('.pharmacy-list')[0].appendChild(newElement);
-            }
+            let newElement = addNewElement(storeDatas, i);
+            document.querySelectorAll('.pharmacy-list')[0].appendChild(newElement);
         }
     }
 
