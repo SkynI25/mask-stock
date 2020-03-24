@@ -112,6 +112,37 @@
         return data.filter(s => s.remain_stat !== 'break').length;
     }
 
+    function haversineFormula(data) {
+        let toRadians = Math.PI / 180;
+        let R = 6371e3;
+        let theta1 = lat * toRadians;
+        let theta2 = data.lat * toRadians;
+        let deltaTheta = Math.abs(data.lat - lat) * toRadians;
+        let deltaGamma = Math.abs(data.lng - lng) * toRadians;
+
+        let a = Math.sin(deltaTheta/2) * Math.sin(deltaTheta/2) +
+        Math.cos(theta1) * Math.cos(theta2) * Math.sin(deltaGamma/2) * Math.sin(deltaGamma/2);
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        return R * c;
+    }
+
+    function sortByDistance(data) {
+        let sortMap = new Map();
+        for(let i = 0; i < data.length; i++) {
+            sortMap.set(i, haversineFormula(data[i]));
+        }
+        let sortedMap = [...sortMap.entries()].sort((a,b) => {
+            return a[1] - b[1] > 0 ? 1 : a[1] - b[1] < 0 ? -1 : 0;
+        });
+        let sortedArr = [];
+        for(let i = 0; i < sortedMap.length; i++) {
+            let index = sortedMap[i][0];
+            sortedArr.push(data[index]);
+        }
+        return sortedArr;
+    }
+
     function sortingDataByType(data) {
         let stockMap = new Map([
             ['plenty', 5],
@@ -126,6 +157,8 @@
                 return stockMap.get(a.remain_stat) - stockMap.get(b.remain_stat) < 0 ?
                 1 : stockMap.get(a.remain_stat) - stockMap.get(b.remain_stat) > 0 ? -1 : 0
             });
+        } else {
+            data.stores = sortByDistance(data.stores);
         }
 
         return data;
@@ -134,7 +167,7 @@
     function addStores(data) {
         let storeDatas = sortingDataByType(JSON.parse(data));
         let pharmacyCount = document.querySelectorAll('.content .pharmacy-total h2')[0].textContent + '총 ' + storeDatas.count + '개 지점';
-        pharmacyCount += `\n(현재 : ${isAvailableStock(storeDatas.stores)}개 지점 보유)`
+        pharmacyCount += `\n(현재 : ${isAvailableStock(storeDatas.stores)}개 지점 보유중)`
         document.querySelectorAll('.content .pharmacy-total h2')[0].textContent = pharmacyCount;
         for(let i = 0; i < storeDatas.stores.length; i++) {
             if(storeDatas.stores[i].remain_stat != null && storeDatas.stores[i].stock_at !== null && storeDatas.stores[i].created_at !== null) {
@@ -158,11 +191,13 @@
         let selectBox = document.querySelectorAll('#distance')[0];
         let distnace = selectBox.options[selectBox.selectedIndex].value
 
-        let result = await fetch(`
-        https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${lat.toFixed(6)}&lng=${lng.toFixed(6)}&m=${distnace}`)
-        .then(res => res.text());
         removeStores();
+        document.querySelectorAll('#progress_loading')[0].style.visibility = 'visible';
+        let result = await fetch(`
+        https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${crd.latitude.toFixed(6)}&lng=${crd.longitude.toFixed(6)}&m=${distnace}`)
+        .then(res => res.text());
         addStores(result);
+        document.querySelectorAll('#progress_loading')[0].style.visibility = 'hidden';
     }
     
     function error(err) {
