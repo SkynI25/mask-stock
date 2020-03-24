@@ -97,7 +97,8 @@ import 'regenerator-runtime/runtime'
         let newAddr = document.createElement('p');
         let addrLink = document.createElement('a');
         addrLink.textContent = storeDatas.stores[index].addr;
-        addrLink.href = `https://search.naver.com/search.naver?ie=UTF-8&query=${encodeURI(storeDatas.stores[index].addr + storeDatas.stores[index].name)}`;
+        addrLink.href = `https://search.naver.com/search.naver?ie=UTF-8&query=${encodeURI(storeDatas.stores[index].addr)}`;
+        addrLink.target = `_blank`
         addrLink.classList.add(`addr-link`);
         newAddr.appendChild(addrLink);
 
