@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Mask-Stock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="progress_loading">
+        <img src="resource/loading.gif">
+    </div>
+    <header class="header">
+        <div class="header-inner">
+            <div class="title">
+                <h1><a href="#">현재 마스크 재고</a></h1>
+            </div>
+            <div class="category">
+                <ul>
+                    <li><a href="#">약국</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="pharmacy-total">
+            <h2 class="pharmacy-count">약국 : </h2>
+            <div class="pharmacy-data">
+                <div class="select-distance">
+                    <select id="distance">
+                        <option value="500">반경 500m</option>
+                        <option value="1000">반경 1000m</option>
+                        <option value="1500">반경 1500m</option>
+                        <option value="2000">반경 2000m</option>
+                        <option value="3000">반경 3000m</option>
+                        <option value="4000">반경 4000m</option>
+                        <option value="5000">반경 5000m</option>
+                    </select>
+                </div>
+                <div class="sort-type">
+                    <input type="radio" id="distance" name="sort_type" value="distance" checked="checked">
+                    <label for="distance">거리순</label>
+                    <input type="radio" id="stock" name="sort_type" value="stock">
+                    <label for="stock">재고순</label>
+                </div>
+                <button id="update">위치 및 재고 업데이트</button>
+            </div>
+        </div>
+        <ul class="pharmacy-list">
+            <p>현재 주변의 마스크 판매처를 찾으시려면 위에서 거리를 선택 후 업데이트 버튼을 클릭해주세요.<br>
+            (이 후 위치 접근을 허용해주셔야 합니다. 위치 정보는 절대 저장되거나 악용되지 않습니다.)</p>
+        </ul>
+    </div>
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="copyright">
+                <p>Copyright &copy; <a href="https://github.com/SkynI25">SkynI25</a></p>
+            </div>
+        </div>
+    </footer>
+    <script src="index.js"></script>
+</body>
+</html>

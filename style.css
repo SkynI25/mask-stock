@@ -1,0 +1,382 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    font-family: '맑은 고딕', 'Apple SD Gothic Neo', sans-serif
+}
+
+#progress_loading {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    visibility: hidden;
+}
+
+.header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #dddddd;
+}
+
+.title h1 a {
+    text-decoration: none;
+    color : #000000;
+}
+
+.title h1 {
+    margin: 0;
+}
+
+.header:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.category ul {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+.category li a {
+    display: block;
+    padding: 10px 20px 10px 20px;
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none
+}
+
+.category li a:hover {
+    background-color: #eeeeee;
+}
+
+.pharmacy-count {
+    float: left;
+    width: 50%;
+    white-space: pre-wrap;
+}
+
+.pharmacy-data {
+    float: left;
+    width: 50%;
+}
+
+.sort-type {
+    margin-left: 12px;
+    float: left;
+    margin-top: 25px;
+}
+
+label {
+    font-size: 15px;
+    padding: 0px 1em 0px 0px;   
+}
+
+input[type=radio],
+input.radio {
+    margin: 2px 0 0 2px;
+}
+
+.select-distance {
+    margin-left: 10%;
+    float: left;
+    margin-top: 25px;
+    width: auto;
+}
+
+#update {
+    margin-top: 25px;
+    float: right;
+    width: 95px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+    border-radius: 4px;
+}
+
+.pharmacy-total:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.pharmacy-list {
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+}
+
+.pharmacy-list > p{
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.pharmacy-list li {
+    text-decoration: none;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.pharmacy-item {
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid #dddddd;
+    box-shadow: 0 0 10px #dddddd;
+}
+
+.store-name {
+    float:left;
+    width: 50%;
+}
+
+.update-date {
+    font-size: 14px;
+    padding-top: 20px;
+    color: gray;
+    float:right;
+    width: 30%;
+}
+
+.addr-link {
+    text-decoration: none;
+    color: #000000;
+}
+
+.store-header:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.mask-text:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.mask-text p {
+    width: 105px;
+    float: left;
+}
+
+.mask-current {
+    width: 20px;
+    float: left;
+    height: 20px;
+    margin: 16px 10px 0 0;
+}
+
+.mask-text .stock-date {
+    font-size: 14px;
+    padding-top: 3px;
+    color: gray;
+    float:right;
+    width: 30%;
+}
+
+.mask-current.green {
+    background: green;
+    border-radius: 50%;
+    background-image: radial-gradient(lime, transparent);
+}
+
+.mask-current.yellow {
+    background: yellow;
+    border-radius: 50%;
+    background-image: radial-gradient(orange, transparent);
+}
+
+.mask-current.red {
+    background: red;
+    border-radius: 50%;
+    background-image: radial-gradient(brown, transparent);
+}
+
+.mask-current.gray {
+    background: gray;
+    border-radius: 50%;
+    background-image: radial-gradient(#ffffff, transparent);
+}
+
+.mask-current.black {
+    background: black;
+    border-radius: 50%;
+    background-image: radial-gradient(gray, transparent);
+}
+
+.mask-text .mask-remain {
+    width: 170px;
+}
+
+.copyright p {
+    margin: 0;
+    color: #666666;
+    font-size: 14px;
+}
+
+.footer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #dddddd;
+}
+
+.header-inner, .content, .footer-inner {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+@media (max-width: 335px) {
+    .category li a {
+        padding: 10px 7px;
+        font-size: 12px;
+    }
+    .category li {
+        width: 17%;
+    }
+    .pharmacy-total .pharmacy-count {
+        font-size: 18px;
+    }
+    .pharmacy-data .select-distance {
+        padding-bottom: 0;
+    }
+    .sort-type {
+        float: none;
+        margin-bottom: 25px;
+    }
+    #update {
+        float: none;
+    }
+    .mask-text .mask-remain {
+        width: 100% !important;
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 320px) {
+    .title {
+        float: left;
+        width: auto;
+    }
+    .category {
+        float: right;
+        width: auto;
+    }
+    
+    .category ul:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    
+    .category li {
+        float: left;
+        width: auto;
+    }
+}
+
+@media (max-width: 590px) {
+    p {
+        font-size: 14px;
+    }
+    .title h1 a {
+        font-size: 25px;
+    }
+    .pharmacy-count {
+        font-size: 20px;
+    }
+    .sort-type {
+        margin-left: 0;
+    }
+    .pharmacy-data .sort-type {
+        margin-right: 5%;
+    }
+    .select-distance {
+        float: none;
+        margin: 0 !important;
+        padding-bottom: 20px;
+    }
+    #update {
+        margin: 0;
+        float: none;
+    }
+    .pharmacy-list > p {
+        font-size: 15px;
+    }
+    .mask-text p {
+        width: 95px;
+    }
+}
+
+@media (max-width: 725px) {
+    .pharmacy-count {
+        width: 60%;
+    }
+    .pharmacy-data {
+        width: 40%;
+    }
+    .store-name {
+        font-size: 25px;
+        width:100%;
+    }
+    .update-date {
+        float:left;
+        width: auto;
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+    }
+    .mask-text .mask-remain {
+        width: auto;
+    }
+    .mask-text .stock-date {
+        float: left;
+        width: 100%;
+        padding: 0;
+        font-size: 12px;
+        margin: 5px 0 10px 0;
+    }
+    .mask-current {
+        margin: 13px 10px 0 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .pharmacy-count {
+        float: none;
+        width: 100%;
+    }
+    .pharmacy-data {
+        float: none;
+        width: 100%;
+    }
+    #update {
+        float: left;
+    }
+    /* .select-distance {
+        float: none;
+        margin: 0 !important;
+        padding-bottom: 20px;
+    } */
+}
+
+@media (max-width: 1000px) {
+    .select-distance {
+        margin-left: 0;
+    }
+    .sort-type {
+        margin-right: 0;
+    }
+}
+
+@media (min-width: 1190px) {
+    .header-inner, .content, .footer-inner {
+        width : 950px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .pharmacy-list {
+        width: 100%;
+    }
+    .select-distance {
+        margin-left: 0;
+    }
+}
