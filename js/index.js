@@ -189,6 +189,12 @@
         let pharmacyCount = document.querySelectorAll('.content .pharmacy-total h2')[0].textContent + '총 ' + storeDatas.count + '개 지점';
         pharmacyCount += `\n(현재 : ${isAvailableStock(storeDatas.stores)}개 지점 보유중)`
         document.querySelectorAll('.content .pharmacy-total h2')[0].textContent = pharmacyCount;
+
+        let newNotice = document.createElement('p');
+        newNotice.textContent = `주소를 클릭하시면 해당 위치를 지도로 확인할 수 있습니다`;
+        newNotice.classList.add(`notice`);
+        document.querySelectorAll('.content')[0].insertBefore(newNotice, document.querySelectorAll('.pharmacy-list')[0]);
+
         for(let i = 0; i < storeDatas.stores.length; i++) {
             let newElement = addNewElement(storeDatas, i);
             document.querySelectorAll('.pharmacy-list')[0].appendChild(newElement);
@@ -199,6 +205,9 @@
         let totalCount = document.querySelectorAll('.pharmacy-total h2')[0];
         totalCount.textContent = totalCount.textContent.substring(0, 5);
         document.querySelectorAll('.pharmacy-list')[0].innerHTML = '';
+        if(document.querySelectorAll('.notice')[0]) {
+            document.querySelectorAll('.notice')[0].remove();
+        }
     }
 
     async function success(pos) {
