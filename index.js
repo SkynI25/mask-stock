@@ -237,6 +237,8 @@
                 navigator.geolocation.getCurrentPosition(success, error, options);
             } else if (result.state == 'prompt') {
                 navigator.geolocation.getCurrentPosition(success, error, options);
+            } else if (result.state == 'denied') {
+                alert('위치 접근 권한을 사용할 수 없습니다.');
             }
         });
     }, false);
