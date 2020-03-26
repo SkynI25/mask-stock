@@ -1,3 +1,5 @@
+import 'regenerator-runtime/runtime'
+
 (function() {
     let options = {
         enableHighAccuracy: true,
