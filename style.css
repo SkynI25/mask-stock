@@ -375,7 +375,7 @@ input.radio {
 }
 
 @media (min-width: 1190px) {
-    .header-inner, .content, .footer-inner {
+    .header-inner, .content, .footer-inner, .notice-inner {
         width : 950px;
         margin-right: auto;
         margin-left: auto;
