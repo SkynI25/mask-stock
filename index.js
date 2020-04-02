@@ -217,7 +217,7 @@ import 'regenerator-runtime/runtime'
         lat = crd.latitude;
         lng = crd.longitude;
         
-        let selectBox = document.querySelectorAll('#distance')[0];
+        let selectBox = document.querySelectorAll('#distance-rad')[0];
         let distnace = selectBox.options[selectBox.selectedIndex].value
 
         removeStores();
@@ -234,14 +234,15 @@ import 'regenerator-runtime/runtime'
     }
 
     document.querySelectorAll('#update')[0].addEventListener('click', evt => {
-        navigator.permissions.query({name:'geolocation'}).then(function(result) {
-            if (result.state == 'granted') {
-                navigator.geolocation.getCurrentPosition(success, error, options);
-            } else if (result.state == 'prompt') {
-                navigator.geolocation.getCurrentPosition(success, error, options);
-            } else if (result.state == 'denied') {
-                alert('위치 접근 권한을 사용할 수 없습니다.');
-            }
-        });
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        // navigator.permissions.query({name:'geolocation'}).then(function(result) {
+        //     if (result.state == 'granted') {
+        //         navigator.geolocation.getCurrentPosition(success, error, options);
+        //     } else if (result.state == 'prompt') {
+        //         navigator.geolocation.getCurrentPosition(success, error, options);
+        //     } else if (result.state == 'denied') {
+        //         alert('위치 권한을 허용할 수 없습니다.');
+        //     }
+        // });
     }, false);
 })();
