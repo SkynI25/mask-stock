@@ -9,9 +9,9 @@
 
 ## Specification
 - Javascript
- - Geolocation API
- - Fetch API
- - DOM API
+  - Geolocation API
+  - Fetch API
+  - DOM API
 - HTML
 - CSS
 
