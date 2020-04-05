@@ -1,5 +1,3 @@
-import 'regenerator-runtime/runtime'
-
 (function() {
     let options = {
         enableHighAccuracy: true,
@@ -235,14 +233,5 @@ import 'regenerator-runtime/runtime'
 
     document.querySelectorAll('#update')[0].addEventListener('click', evt => {
         navigator.geolocation.getCurrentPosition(success, error, options);
-        // navigator.permissions.query({name:'geolocation'}).then(function(result) {
-        //     if (result.state == 'granted') {
-        //         navigator.geolocation.getCurrentPosition(success, error, options);
-        //     } else if (result.state == 'prompt') {
-        //         navigator.geolocation.getCurrentPosition(success, error, options);
-        //     } else if (result.state == 'denied') {
-        //         alert('위치 권한을 허용할 수 없습니다.');
-        //     }
-        // });
     }, false);
 })();
