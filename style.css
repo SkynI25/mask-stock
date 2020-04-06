@@ -70,7 +70,7 @@ body {
 
 label {
     font-size: 15px;
-    padding: 0px 1em 0px 0px;   
+    padding: 0px 1em 0px 0px;
 }
 
 input[type=radio],
@@ -102,8 +102,9 @@ input.radio {
 .notice {
     padding-top:10px;
     padding-left: 10px;
+    font-weight: bold;
     font-size: 12px;
-    color: #666666;
+    color: #4169E1;
 }
 
 .pointout {
@@ -231,9 +232,31 @@ input.radio {
     background-color: #dddddd;
 }
 
-.header-inner, .content, .footer-inner {
+.header-inner, .content, .footer-inner, .notice-inner {
     margin-right: 20px;
     margin-left: 20px;
+}
+
+@media (min-width: 320px) {
+    .title {
+        float: left;
+        width: auto;
+    }
+    .category {
+        float: right;
+        width: auto;
+    }
+    
+    .category ul:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    
+    .category li {
+        float: left;
+        width: auto;
+    }
 }
 
 @media (max-width: 335px) {
@@ -263,33 +286,11 @@ input.radio {
     }
 }
 
-@media (min-width: 320px) {
-    .title {
-        float: left;
-        width: auto;
-    }
-    .category {
-        float: right;
-        width: auto;
-    }
-    
-    .category ul:after {
-        content: "";
-        display: block;
-        clear: both;
-    }
-    
-    .category li {
-        float: left;
-        width: auto;
-    }
-}
-
 @media (max-width: 590px) {
     p {
         font-size: 14px;
     }
-    .title h1 a {
+    .title h1 a, .notice-inner > h1 {
         font-size: 25px;
     }
     .pharmacy-count {
@@ -363,11 +364,6 @@ input.radio {
     #update {
         float: left;
     }
-    /* .select-distance {
-        float: none;
-        margin: 0 !important;
-        padding-bottom: 20px;
-    } */
 }
 
 @media (max-width: 1000px) {
@@ -380,7 +376,7 @@ input.radio {
 }
 
 @media (min-width: 1190px) {
-    .header-inner, .content, .footer-inner {
+    .header-inner, .content, .footer-inner, .notice-inner {
         width : 950px;
         margin-right: auto;
         margin-left: auto;

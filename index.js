@@ -215,7 +215,7 @@
         lat = crd.latitude;
         lng = crd.longitude;
         
-        let selectBox = document.querySelectorAll('#distance')[0];
+        let selectBox = document.querySelectorAll('#distance-rad')[0];
         let distnace = selectBox.options[selectBox.selectedIndex].value
 
         removeStores();
