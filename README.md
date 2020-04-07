@@ -17,4 +17,4 @@
 
 ## URL
 - https://www.mask-stock.world
-- https://skyni25.github.io
+- https://skyni25.github.io/mask-stock/
