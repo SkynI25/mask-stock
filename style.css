@@ -38,6 +38,17 @@ body {
     padding: 0;
     list-style: none
 }
+    
+.category ul:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.category li {
+    float: left;
+    width: auto;
+}
 
 .category li a {
     display: block;
@@ -49,6 +60,93 @@ body {
 
 .category li a:hover {
     background-color: #eeeeee;
+}
+
+.faq-title {
+    border-bottom: #000000 solid 2px;
+}
+
+.faq-title > h3 {
+    margin-bottom: 7px;
+}
+
+.faq-list {
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.faq-list li a {
+    display: block;
+    padding: 20px;
+    color: #000000;
+    font-size: 15px;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.faq-list li a .q-text {
+    font-size: 25px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+.faq-list li a .q-sign {
+    max-width: 23px;
+    padding-top: 20px;
+}
+
+.q-content {
+    float:left;
+    width: 90%;
+}
+
+.arrow-sign {
+    float:right;
+    width: 3%;
+}
+
+.faq-list li a .q-sign[aria-expanded="true"] {
+    padding-top: 0px;
+    padding-bottom: 15px;
+    -webkit-transform:rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.a-content {
+    display: none;
+    background: #eeeeee;
+    margin-left: 20px;
+}
+
+.a-text {
+    padding: 20px 0px;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 14px;
+}
+
+.a-mobile {
+    font-weight: bolder;
+    font-size: 17px;
+    padding-bottom: 5px;
+}
+
+.another-solution {
+    font-weight: bolder;
+}
+
+.service-provider {
+    text-align: center;
+}
+
+.service-provider p {
+    color: #666666;
+    font-size: 14px;
 }
 
 .pharmacy-count {
@@ -237,35 +335,10 @@ input.radio {
     margin-left: 20px;
 }
 
-@media (min-width: 320px) {
-    .title {
-        float: left;
-        width: auto;
-    }
-    .category {
-        float: right;
-        width: auto;
-    }
-    
-    .category ul:after {
-        content: "";
-        display: block;
-        clear: both;
-    }
-    
-    .category li {
-        float: left;
-        width: auto;
-    }
-}
-
-@media (max-width: 335px) {
+@media (max-width: 399px) {
     .category li a {
         padding: 10px 7px;
         font-size: 12px;
-    }
-    .category li {
-        width: 17%;
     }
     .pharmacy-total .pharmacy-count {
         font-size: 18px;
@@ -286,12 +359,28 @@ input.radio {
     }
 }
 
+@media (min-width: 400px) {
+    .title {
+        float: left;
+        width: auto;
+    }
+    .category {
+        float: right;
+        width: auto;
+    }
+}
+
+
 @media (max-width: 590px) {
     p {
-        font-size: 14px;
+        font-size: 13px;
     }
     .title h1 a, .notice-inner > h1 {
         font-size: 25px;
+    }
+    .category li a {
+        font-size: 13px;
+        padding-top: 15px;
     }
     .pharmacy-count {
         font-size: 20px;
@@ -317,9 +406,32 @@ input.radio {
     .mask-text p {
         width: 95px;
     }
+    .faq-list li a .q-text {
+        font-size: 20px;
+    }
+    .faq-list li a {
+        font-size: 13px;
+    }
+    .faq-list li a .q-sign {
+        max-width: 15px;
+        padding-top: 15px;
+    }
+    .service-provider h3 {
+        font-size: 16px;
+    }
+    .service-provider p {
+        font-size: 12px;
+    }
+    .faq-list li a .q-sign[aria-expanded="true"] {
+        padding-bottom: 15px !important;
+    }
 }
 
 @media (max-width: 725px) {
+    .faq-list li a .q-sign[aria-expanded="true"] {
+        padding-bottom: 20px;
+    }
+
     .pharmacy-count {
         width: 60%;
     }
