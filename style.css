@@ -406,6 +406,10 @@ input.radio {
     .mask-text p {
         width: 95px;
     }
+    .a-text {
+        margin-left: 27px;
+        margin-right: 27px;
+    }
     .faq-list li a .q-text {
         font-size: 20px;
     }
