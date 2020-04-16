@@ -138,6 +138,7 @@ body {
 
 .another-solution {
     font-weight: bolder;
+    margin-top: 20px;
 }
 
 .service-provider {
@@ -245,6 +246,27 @@ input.radio {
     color: gray;
     float:right;
     width: 30%;
+}
+
+.address-info:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.address-info {
+    margin: 20px 0;
+}
+
+.address-field {
+    width:330px;
+    font-size: 15px;
+    height: 20px;
+}
+
+#search-button {
+    height: 26px;
+    vertical-align: bottom;
 }
 
 .addr-link {
@@ -359,7 +381,7 @@ input.radio {
     }
 }
 
-@media (min-width: 400px) {
+@media (min-width: 430px) {
     .title {
         float: left;
         width: auto;
@@ -381,6 +403,13 @@ input.radio {
     .category li a {
         font-size: 13px;
         padding-top: 15px;
+    }
+    .address-info h3 {
+        font-size: 15px;
+    }
+    .address-field {
+        width: 280px;
+        font-size: 13px;
     }
     .pharmacy-count {
         font-size: 20px;
