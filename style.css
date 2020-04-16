@@ -52,7 +52,7 @@ body {
 
 .category li a {
     display: block;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 15px;
     color: #000000;
     font-size: 14px;
     text-decoration: none
@@ -390,6 +390,9 @@ input.radio {
         float: right;
         width: auto;
     }
+    .category li a {
+        padding: 10px 20px;
+    }
 }
 
 
@@ -403,6 +406,8 @@ input.radio {
     .category li a {
         font-size: 13px;
         padding-top: 15px;
+        margin-top: 10px;
+        line-height: 1;
     }
     .address-info h3 {
         font-size: 15px;
