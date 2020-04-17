@@ -282,7 +282,7 @@
         document.querySelectorAll('#progress_loading')[0].style.visibility = 'hidden';
     }
 
-    function createRecommendEl(data) {
+    function initRecommendAddr(results) {
         if(document.querySelectorAll('.search-results')[0]) {
             document.querySelectorAll('.search-results')[0].remove();
         }
@@ -290,7 +290,31 @@
         search_res.classList.add('search-results');
         let search_list = document.createElement('ul');
         search_res.appendChild(search_list);
-        let count = 0;
+
+        if(results.common.errorCode !== "0") {
+            notFoundAddress(search_list, results.common.errorMessage);
+        } else {
+            const jusosToSend = results.juso.map(el => el.jibunAddr);
+            const jusosToShow = results.juso.map(el => el.roadAddr);
+    
+            let jusoMap = new Map();
+            for(let i = 0; i < jusosToSend.length; i++) {
+                jusoMap.set(jusosToSend[i], jusosToShow[i]);
+            }
+            createRecommendEl(search_list, jusoMap);
+        }
+        document.querySelectorAll('.address-info')[0].appendChild(search_res);
+    }
+
+    function notFoundAddress(parent, errorMsg) {
+        let listEl = document.createElement('li');
+        let anchorEl = document.createElement('a');
+        anchorEl.textContent = errorMsg;
+        listEl.appendChild(anchorEl);
+        parent.appendChild(listEl);
+    }
+
+    function createRecommendEl(parent, data) {
         data.forEach((val, key) => {
             let listEl = document.createElement('li');
             let anchorEl = document.createElement('a');
@@ -301,9 +325,8 @@
                 addressText = key.split(' ').filter((el, idx) => idx <= 2).join(' ');
             }, false);
             listEl.appendChild(anchorEl);
-            search_list.appendChild(listEl);
+            parent.appendChild(listEl);
         });
-        document.querySelectorAll('.address-info')[0].appendChild(search_res);
     }
 
     async function addressRecommend(textData) {
@@ -311,21 +334,13 @@
         data.append('keyword', textData)
         data.append('confmKey', 'U01TX0FVVEgyMDIwMDQxNzA5MzcxMDEwOTY3NzI=');
         data.append('resultType', 'json');
-        let result = await fetch(`http://www.juso.go.kr/addrlink/addrLinkApi.do`,{
+        let result = await fetch(`https://www.juso.go.kr/addrlink/addrLinkApi.do`,{
             method: 'POST',
             body: data
         })
         .then(res => res.json());
         
-        const jusosToSend = result.results.juso.map(el => el.jibunAddr);
-        const jusosToShow = result.results.juso.map(el => el.roadAddr);
-
-        let jusoMap = new Map();
-        for(let i = 0; i < jusosToSend.length; i++) {
-            jusoMap.set(jusosToSend[i], jusosToShow[i]);
-        }
-
-        createRecommendEl(jusoMap);
+        initRecommendAddr(result.results);
     }
 
     function menuClick() {
