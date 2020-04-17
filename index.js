@@ -8,6 +8,8 @@
     let lat = 0;
     let lng = 0;
 
+    let addressText = "";
+
     function calcTime(date) {
         let now = new Date() - new Date(date);
         if((now / (1000 * 60 * 60 * 24)) >= 1) {
@@ -175,17 +177,19 @@
         let onSaleStores = data.stores.filter(s => {
             return s.remain_stat != null && s.stock_at !== null && s.created_at !== null
         })
-        if(document.querySelectorAll('#stock')[0] && document.querySelectorAll('#stock')[0].checked) {
+        if(document.querySelectorAll('.sort-type')[0] && document.querySelectorAll('#stock')[0].checked) {
             data.stores = sortByStock(onSaleStores);
-        } else {
+        } else if(document.querySelectorAll('.sort-type')[0] && document.querySelectorAll('#distance')[0].checked) {
             data.stores = sortByDistance(onSaleStores);
+        } else {
+            data.stores = onSaleStores;
         }
 
         return data;
     }
 
-    function addStores(data) {
-        let storeDatas = sortingDataByType(JSON.parse(data));
+    function addStores(result) {
+        let storeDatas = sortingDataByType(result);
         let pharmacyCount = document.querySelectorAll('.content .pharmacy-total h2')[0].textContent + ' 총 ' + storeDatas.count + '개 지점';
         pharmacyCount += `\n(현재 : ${isAvailableStock(storeDatas.stores)}개 지점 보유중)`
         document.querySelectorAll('.content .pharmacy-total h2')[0].textContent = pharmacyCount;
@@ -203,11 +207,18 @@
 
     function removeStores() {
         let totalCount = document.querySelectorAll('.pharmacy-total h2')[0];
-        totalCount.textContent = totalCount.textContent.substring(0, 5);
-        document.querySelectorAll('.pharmacy-list')[0].innerHTML = '';
-        if(document.querySelectorAll('.notice')[0]) {
-            document.querySelectorAll('.notice')[0].remove();
+        if(totalCount) {
+            totalCount.textContent = totalCount.textContent.substring(0, 5);
         }
+        if(location.hash === '#search') {
+            [...document.querySelectorAll('.content')[0].children].forEach(el => el.className !== 'address-info' ? el.remove() : el)
+        } else if(location.hash === '#near' || location.hash === '') {
+            document.querySelectorAll('.pharmacy-list')[0].innerHTML = '';
+            if(document.querySelectorAll('.notice')[0]) {
+                document.querySelectorAll('.notice')[0].remove();
+            }
+        }
+        
     }
 
     async function success(pos) {
@@ -222,7 +233,7 @@
         document.querySelectorAll('#progress_loading')[0].style.visibility = 'visible';
         let result = await fetch(`
         https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${crd.latitude.toFixed(6)}&lng=${crd.longitude.toFixed(6)}&m=${distnace}`)
-        .then(res => res.text());
+        .then(res => res.json());
         addStores(result);
         document.querySelectorAll('#progress_loading')[0].style.visibility = 'hidden';
     }
@@ -246,25 +257,75 @@
     }
     
     async function searchClick(addressText) {
-        if(document.querySelectorAll('.pharmacy-total h2')[0]) {
-            removeStores();
-        }
+        removeStores();
         document.querySelectorAll('#progress_loading')[0].style.visibility = 'visible';
         let result = await fetch(`
         https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByAddr/json?address=${encodeURI(addressText)}`)
-        .then(res => res.text());
-        let pharmacyTotal = document.createElement('div');
-        pharmacyTotal.classList.add('pharmacy-total');
-        let pharmacyCount = document.createElement('h2');
-        pharmacyCount.classList.add('pharmacy-count');
-        pharmacyCount.textContent = "판매처 : ";
-        let pharmacyList = document.createElement('ul');
-        pharmacyList.classList.add('pharmacy-list');
-        pharmacyTotal.appendChild(pharmacyCount);
-        document.querySelectorAll('.content')[0].appendChild(pharmacyTotal);
-        document.querySelectorAll('.content')[0].appendChild(pharmacyList);
-        addStores(result);
+        .then(res => res.json());
+        if(result.stores.length > 0) {
+            let pharmacyTotal = document.createElement('div');
+            pharmacyTotal.classList.add('pharmacy-total');
+            let pharmacyCount = document.createElement('h2');
+            pharmacyCount.classList.add('pharmacy-count');
+            pharmacyCount.textContent = "판매처 : ";
+            let pharmacyList = document.createElement('ul');
+            pharmacyList.classList.add('pharmacy-list');
+            pharmacyTotal.appendChild(pharmacyCount);
+            document.querySelectorAll('.content')[0].appendChild(pharmacyTotal);
+            document.querySelectorAll('.content')[0].appendChild(pharmacyList);
+            addStores(result);
+        } else {
+            let noResult = document.createElement('h3');
+            noResult.textContent = "검색결과가 없습니다.";
+            document.querySelectorAll('.content')[0].appendChild(noResult);
+        }
         document.querySelectorAll('#progress_loading')[0].style.visibility = 'hidden';
+    }
+
+    function createRecommendEl(data) {
+        if(document.querySelectorAll('.search-results')[0]) {
+            document.querySelectorAll('.search-results')[0].remove();
+        }
+        let search_res = document.createElement('div');
+        search_res.classList.add('search-results');
+        let search_list = document.createElement('ul');
+        search_res.appendChild(search_list);
+        let count = 0;
+        data.forEach((val, key) => {
+            let listEl = document.createElement('li');
+            let anchorEl = document.createElement('a');
+            anchorEl.textContent = val;
+            anchorEl.addEventListener('click', evt => {
+                document.querySelectorAll('.address-field')[0].value  = val;
+                document.querySelectorAll('.search-results')[0].remove();
+                addressText = key.split(' ').filter((el, idx) => idx <= 2).join(' ');
+            }, false);
+            listEl.appendChild(anchorEl);
+            search_list.appendChild(listEl);
+        });
+        document.querySelectorAll('.address-info')[0].appendChild(search_res);
+    }
+
+    async function addressRecommend(textData) {
+        const data = new URLSearchParams();
+        data.append('keyword', textData)
+        data.append('confmKey', 'U01TX0FVVEgyMDIwMDQxNzA5MzcxMDEwOTY3NzI=');
+        data.append('resultType', 'json');
+        let result = await fetch(`http://www.juso.go.kr/addrlink/addrLinkApi.do`,{
+            method: 'POST',
+            body: data
+        })
+        .then(res => res.json());
+        
+        const jusosToSend = result.results.juso.map(el => el.jibunAddr);
+        const jusosToShow = result.results.juso.map(el => el.roadAddr);
+
+        let jusoMap = new Map();
+        for(let i = 0; i < jusosToSend.length; i++) {
+            jusoMap.set(jusosToSend[i], jusosToShow[i]);
+        }
+
+        createRecommendEl(jusoMap);
     }
 
     function menuClick() {
@@ -295,7 +356,7 @@
                             <p>3단계 : 휴대폰 설정 > 애플리케이션 > Chrome > 앱 권한으로 들어가서 위치 권한을 허용해준다. (이미 허용되어 있는 경우 이 단계는 무시)</p>
                             <p>4단계 : 사이트에 재접속해서 '위치 및 재고 업데이트' 버튼을 누르면 '기기의 위치에 액세스하려고 합니다' 라는 팝업이 뜬다.</p>
                             <p>'허용' 버튼을 클릭해준다.</p>
-        
+                            
                             <div class="another-solution">(위 방법으로도 안되는 경우)</div>
                             <p>Galaxy Q6 기종의 경우 위 방법으로 해결이 안되는 것으로 확인되었습니다.<br>
                             이 경우 play 스토어에서 새로운 모바일 브라우저(예: firefox)를 설치하셔서 사이트에 접속하시길 권장드립니다.</p>
@@ -322,7 +383,7 @@
                     <a href="#" role="button">
                         <div class="q-content">
                             <span class="q-text">Q.</span>
-                            <span>주소를 입력했는데 검색이 안되요</span>
+                            <span>주소를 입력했는데 찾는 주소가 뜨지 않아요</span>
                         </div>
                         <div class="arrow-sign">
                             <img class="q-sign" src="resource/qsign.png" aria-expanded="false">
@@ -330,9 +391,29 @@
                     </a>
                     <div class="a-content">
                         <div class="a-text">
-                            <p>'시 또는 도'단위만 입력하면 검색이 불가능합니다. 구 또는 읍/면/동 이름을 같이 입력해주시기 바랍니다.<br><b>예)</b> '서울특별시 강남구' 또는 '서울특별시 강남구 논현동'</p>
-                            <div class="another-solution">('시' 또는 '도'를 입력했지만 안되는 경우)</div>
-                            <p>현재 공식 행정구역명으로만 검색이 가능합니다. '제주도'의 경우 '<b>제주특별자치도</b>'로, '세종시'의 경우 '<b>세종특별자치시</b>'과 같이 입력하여 주시기 바랍니다.</p>
+                            <p>자동완성 목록에 나열되는 주소는 서울시를 처음 기준으로 해서 나열됩니다.<br><br>거주하시는 주소의 도로명 또는 아파트/오피스텔 명을 입력하시면 보다 정확한 주소가 제공됩니다.</p>
+                            <div class="another-solution">(주소 입력 팁)</div>
+                            <p>- 도로명 또는 건물 이름을 입력해서 검색한다.</p>
+                            <p><b>예)</b> 한누리대로 411, 국립중앙박물관, 상암동 1595</p>
+                            <p>- '시 또는 도'단위 + 구 또는 읍/면/동 이름을 같이 붙여서 입력한다.</p>
+                            <p><b>예)</b> 서울특별시 강남구 논현동, 경상북도 경주시 황오동</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" role="button">
+                        <div class="q-content">
+                            <span class="q-text">Q.</span>
+                            <span>주소를 입력해서 나온 판매처들이 너무 많아요</span>
+                        </div>
+                        <div class="arrow-sign">
+                            <img class="q-sign" src="resource/qsign.png" aria-expanded="false">
+                        </div>
+                    </a>
+                    <div class="a-content">
+                        <div class="a-text">
+                            <p>현재 해당 서비스는 구 또는 읍/면/동 범위까지만 지원하고 있습니다. 추 후 보다 정확한 정보를 제공하기 위해 업데이트 될 예정입니다.</p>
+                            <p>이용에 불편을 드려 죄송합니다.</p>
                         </div>
                     </div>
                 </li>
@@ -410,8 +491,15 @@
         </div>
                 `;
             }
+            document.querySelectorAll('.address-field')[0].addEventListener('keyup', evt => {
+                if(evt.target.value.length >= 2 && !/[^ㄱ-ㅎㅏ-ㅣ가-힣0-9a-zA-Z\s-_]/.test(evt.target.value)) {
+                    addressRecommend(evt.target.value);
+                }
+                if(document.querySelectorAll('.search-results')[0] && !document.querySelectorAll('.address-field')[0].value.length) {
+                    document.querySelectorAll('.search-results')[0].remove();
+                }
+            }, false);
             document.querySelectorAll('#search-button')[0].addEventListener('click', evt => {
-                let addressText = document.querySelectorAll('.address-field')[0].value;
                 const province = ["경기도", "충청북도", "충청남도", "강원도", "제주특별자치도", "전라북도", "전라남도", "경상북도", "경상남도"];
                 const bigCities = ["서울특별시", "울산광역시", "인천광역시", "부산광역시", "대전광역시", "광주광역시", "대구광역시", "세종특별자치시"];
                 const provRegex = new RegExp(`${province.join('|')}`, 'g');

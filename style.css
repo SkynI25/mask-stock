@@ -55,7 +55,8 @@ body {
     padding: 10px 15px;
     color: #000000;
     font-size: 14px;
-    text-decoration: none
+    text-decoration: none;
+    margin-top: 10px;
 }
 
 .category li a:hover {
@@ -264,6 +265,37 @@ input.radio {
     height: 20px;
 }
 
+.search-results {
+    position: absolute;
+    background: #ffffff;
+    width: 330px;
+    height: auto;
+}
+
+.search-results ul {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+.search-results ul:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.search-results li a {
+    display: block;
+    padding: 10px 15px;
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none
+}
+
+.search-results li a:hover {
+    background-color: #eeeeee;
+}
+
 #search-button {
     height: 26px;
     vertical-align: bottom;
@@ -358,8 +390,11 @@ input.radio {
 }
 
 @media (max-width: 399px) {
+    .content {
+        margin-right: 5px !important;
+        margin-left: 10px !important;
+    }
     .category li a {
-        padding: 10px 7px;
         font-size: 12px;
     }
     .pharmacy-total .pharmacy-count {
@@ -392,6 +427,7 @@ input.radio {
     }
     .category li a {
         padding: 10px 20px;
+        margin-top: 0px;
     }
 }
 
@@ -405,8 +441,7 @@ input.radio {
     }
     .category li a {
         font-size: 13px;
-        padding-top: 15px;
-        margin-top: 10px;
+        padding-top: 20px;
         line-height: 1;
     }
     .address-info h3 {
@@ -415,6 +450,12 @@ input.radio {
     .address-field {
         width: 280px;
         font-size: 13px;
+    }
+    .search-results {
+        width: 280px;
+    }
+    .search-results li a {
+        font-size: 12px;
     }
     .pharmacy-count {
         font-size: 20px;
