@@ -260,7 +260,7 @@ input.radio {
 }
 
 .address-field {
-    width:330px;
+    width:335px;
     font-size: 15px;
     height: 20px;
 }
@@ -268,7 +268,7 @@ input.radio {
 .search-results {
     position: absolute;
     background: #ffffff;
-    width: 330px;
+    width: 335px;
     height: auto;
 }
 
@@ -448,11 +448,11 @@ input.radio {
         font-size: 15px;
     }
     .address-field {
-        width: 280px;
+        width: 290px;
         font-size: 13px;
     }
     .search-results {
-        width: 280px;
+        width: 290px;
     }
     .search-results li a {
         font-size: 12px;

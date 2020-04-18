@@ -366,6 +366,8 @@
                             <div class="a-mobile">
                                 모바일)
                             </div>
+                            <p>카카오톡과 같은 메신저로 접근하셨다면 우측 상단의 설정을 누른 뒤 <span class="pointout">다른 브라우저로 열기</span>를 클릭해주세요.</p>
+                            <div class="another-solution">(그래도 안되는 경우)</div>
                             <p>1단계 : 휴대폰의 위치를 킨다.</p>
                             <p>2단계 : 사용하는 브라우저의 캐시를 지운다.</p>
                             <p>3단계 : 휴대폰 설정 > 애플리케이션 > Chrome > 앱 권한으로 들어가서 위치 권한을 허용해준다. (이미 허용되어 있는 경우 이 단계는 무시)</p>
@@ -487,8 +489,7 @@
                     </div>
                 </div>
                 <ul class="pharmacy-list">
-                    <p>현재 주변의 마스크 판매처를 찾으시려면 위에서 거리를 선택 후 업데이트 버튼을 클릭해주세요.<br>
-                메신저로 접근하셨다면 우측 상단의 설정을 누른 뒤 <span class="pointout">다른 브라우저로 열기</span>를 클릭해주세요.</p>
+                    <p>현재 주변의 마스크 판매처를 찾으시려면 위에서 거리를 선택 후 업데이트 버튼을 클릭해주세요.
                 </ul>
                 `;
                 document.querySelectorAll('#update')[0].addEventListener('click', evt => {
@@ -502,7 +503,7 @@
                 document.querySelectorAll('.content')[0].innerHTML = `
                 <div class="address-info">
             <h3>해당 구, 동내에 존재하는 판매처 목록을 검색합니다.</h3>
-            <input class="address-field" placeholder="예) 서울특별시 강남구, 경상북도 경주시 황오동"><button id="search-button">검색</button>
+            <input class="address-field" placeholder="예) 한누리대로 411, 국립중앙박물관, 상암동 1595"><button id="search-button">검색</button>
         </div>
                 `;
             }
