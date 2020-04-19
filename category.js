@@ -1,6 +1,6 @@
-import * as geo from './geoAPI';
-import * as recommend from './recommend';
-import * as maskStore from  "./maskStoreEl";
+import * as geo from './geoAPI.js';
+import * as recommend from './recommend.js';
+import * as maskStore from  "./maskStoreEl.js";
 
 let addressText = "";
 

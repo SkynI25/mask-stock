@@ -1,5 +1,5 @@
-import * as category from "./category";
-import * as geo from './geoAPI';
+import * as category from "./category.js";
+import * as geo from "./geoAPI.js";
 
 (function() {
     window.history.pushState("", "", window.location.pathname);

@@ -1,6 +1,6 @@
 let addressText = "";
 
-require('dotenv').config('./');
+require('dotenv').config();
 
 function removeRecommendList() {
     if(document.querySelectorAll('.search-results')[0]) {

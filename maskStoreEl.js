@@ -1,4 +1,4 @@
-import * as util from "./util";
+import * as util from "./util.js";
 
 function maskCondition(storeDatas, index) {
     let newMaskText = document.createElement('div');

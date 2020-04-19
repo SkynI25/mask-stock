@@ -1,4 +1,4 @@
-import * as maskStore from  "./maskStoreEl";
+import * as maskStore from  "./maskStoreEl.js";
 
 let lat = 0;
 let lng = 0;

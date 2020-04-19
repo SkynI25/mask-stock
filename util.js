@@ -1,4 +1,4 @@
-import * as coord from './geoAPI';
+import * as coord from './geoAPI.js';
 
 function calcTime(date) {
     let now = new Date() - new Date(date);
