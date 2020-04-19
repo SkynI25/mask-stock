@@ -59,7 +59,7 @@ function menuClick() {
                         <span>위치 및 재고 업데이트 버튼을 눌러도 목록이 안 떠요</span>
                     </div>
                     <div class="arrow-sign">
-                        <img class="q-sign" src=${require('./resource/qsign.png')} aria-expanded="false">
+                        <img class="q-sign" src="./resource/qsign.png" aria-expanded="false">
                     </div>
                 </a>
                 <div class="a-content">
@@ -88,7 +88,7 @@ function menuClick() {
                         <span>판매처는 약국만 있나요?</span>
                     </div>
                     <div class="arrow-sign">
-                        <img class="q-sign" src=${require('./resource/qsign.png')} aria-expanded="false">
+                        <img class="q-sign" src="./resource/qsign.png" aria-expanded="false">
                     </div>
                 </a>
                 <div class="a-content">
@@ -104,7 +104,7 @@ function menuClick() {
                         <span>주소를 입력했는데 찾는 주소가 뜨지 않아요</span>
                     </div>
                     <div class="arrow-sign">
-                        <img class="q-sign" src=${require('./resource/qsign.png')} aria-expanded="false">
+                        <img class="q-sign" src="./resource/qsign.png" aria-expanded="false">
                     </div>
                 </a>
                 <div class="a-content">
@@ -125,7 +125,7 @@ function menuClick() {
                         <span>주소를 입력해서 나온 판매처들이 너무 많아요</span>
                     </div>
                     <div class="arrow-sign">
-                        <img class="q-sign" src=${require('./resource/qsign.png')} aria-expanded="false">
+                        <img class="q-sign" src="./resource/qsign.png" aria-expanded="false">
                     </div>
                 </a>
                 <div class="a-content">
@@ -142,7 +142,7 @@ function menuClick() {
                         <span>위치 정보를 제공하면 어떻게 되나요?</span>
                     </div>
                     <div class="arrow-sign">
-                        <img class="q-sign" src=${require('./resource/qsign.png')} aria-expanded="false">
+                        <img class="q-sign" src="./resource/qsign.png" aria-expanded="false">
                     </div>
                 </a>
                 <div class="a-content">
