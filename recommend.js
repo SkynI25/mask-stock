@@ -1,10 +1,9 @@
 let addressText = "";
 
-require('dotenv').config();
-
 function removeRecommendList() {
-    if(document.querySelectorAll('.search-results')[0]) {
-        document.querySelectorAll('.search-results')[0].remove();
+    const searchResult = document.querySelectorAll('.search-results')[0];
+    if(searchResult) {
+        searchResult.remove();
     }
 }
 
@@ -45,8 +44,9 @@ function createRecommendEl(parent, data) {
         let anchorEl = document.createElement('a');
         anchorEl.textContent = val;
         anchorEl.addEventListener('click', evt => {
-            document.querySelectorAll('.address-field')[0].value  = val;
-            document.querySelectorAll('.search-results')[0].remove();
+            const searchResult = document.querySelectorAll('.search-results')[0];
+            document.querySelectorAll('.address-field')[0].value = val;
+            searchResult.remove();
             addressText = key.split(' ').filter((el, idx) => idx <= 2).join(' ');
         }, false);
         listEl.appendChild(anchorEl);
@@ -57,7 +57,7 @@ function createRecommendEl(parent, data) {
 async function addressRecommend(textData) {
     const data = new URLSearchParams();
     data.append('keyword', textData)
-    data.append('confmKey', process.env.API_KEY);
+    data.append('confmKey', 'U01TX0FVVEgyMDIwMDQxNzA5MzcxMDEwOTY3NzI=');
     data.append('resultType', 'json');
     let result = await fetch(`https://www.juso.go.kr/addrlink/addrLinkApi.do`,{
         method: 'POST',
