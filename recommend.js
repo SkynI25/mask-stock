@@ -57,7 +57,7 @@ function createRecommendEl(parent, data) {
 async function addressRecommend(textData) {
     const data = new URLSearchParams();
     data.append('keyword', textData)
-    data.append('confmKey', 'U01TX0FVVEgyMDIwMDQxNzA5MzcxMDEwOTY3NzI=');
+    data.append('confmKey', process.env.API_KEY);
     data.append('resultType', 'json');
     let result = await fetch(`https://www.juso.go.kr/addrlink/addrLinkApi.do`,{
         method: 'POST',
