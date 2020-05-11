@@ -17,30 +17,70 @@
 
 ### Prerequisites
 
-http-server 모듈의 경우 별도의 의존성이 없으므로 개발할 때 설치하여 사용하시길 권합니다.<br>
-dotenv 모듈의 경우 API_KEY 을 가릴 용도로 사용합니다.
+작업을 위해 각자만의 Code Editor Tool을 설치합니다.<br>
 
 ```
-http-server, dotenv
+Visual Studio Code (권장)
 ```
 
 ### Installing
+
+설치할 모듈
+* **dotenv**
+* **webpack**
+
+dotenv 모듈의 경우 API_KEY 을 가릴 용도로, webpack은 배포용으로 설치합니다. 그러므로 아래와 같은 단계를 거칩니다.
 
 먼저 아래 명령어를 입력하여 package.json 파일을 생성합니다
 ```
 npm init
 ```
 
-그리고 http-server를 아래 명령어를 입력해 설치합니다.
-```
-npm install -g http-server
-```
-
-마지막으로 dotenv 를 설치합니다.
-
+그리고 dotenv를 아래 명령어를 입력해 설치합니다.
 ```
 npm install -D dotenv
 ```
+그리고 webpack 패키지를 아래 명령어를 입력해 설치합니다.
+```
+npm install -D webpack webpack-cli
+```
+
+css 파일과 image들 파일 또한 번들링해서 배포할 것이므로 아래 명령어를 통해 필요한 패키지들을 설치합니다.
+
+```
+npm install -D style-loader css-loader file-loader
+```
+
+배포할 파일을 저장할 public 폴더도 생성해줍니다.<br>
+
+```
+|- package.json
+|- node_modules
+|- public
+...
+```
+
+webpack.config.js 파일은 아래와 같이 설정합니다.
+```
+const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv').config({path: __dirname + '/.env'});
+module.exports = {
+    ...
+    plugins: [
+        new webpack.DefinePlugin({
+            "process.env": JSON.stringify(dotenv.parsed)
+        })
+    ]
+}
+```
+
+dotenv 와 webpack을 결합해서 쓰면 경로 문제가 발생하여 env 설정값을 제대로 읽어오지 못합니다. 이를 위해 위와 같은 추가 설정을 해주어 env 설정값을 읽을 수 있게끔 해줍니다.
+
+## Deployment
+
+실 서버에 배포하는 방법은 아래 블로그 글을 참고하시면 좋습니다.<br>
+[마스크 재고 서비스 배포 과정](https://ktpark1651.tistory.com/248)
 
 ## Authors
 
