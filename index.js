@@ -1,9 +1,10 @@
 import "./style.css";
-import * as geo from "./geoAPI.js";
-import * as category from "./category.js";
+import Geolocation from "./geoAPI.js";
+import menuClick from "./category.js";
 import loadingIcon from "./resource/loading.gif";
 
 const progressLoading = document.querySelector('#progress_loading');
+const updateBtn = document.querySelectorAll('#update')[0];
 
 function loadingIMG() {
     const loadingBar = new Image();
@@ -11,11 +12,14 @@ function loadingIMG() {
     progressLoading.appendChild(loadingBar);
 }
 
+function updateBtnHandler() {
+    const geoLocation = new Geolocation(0, 0);
+    geoLocation.updateLocation();
+}
+
 (function() {
     loadingIMG();
     window.history.pushState("", "", window.location.pathname);
-    document.querySelectorAll('#update')[0].addEventListener('click', _ => {
-        navigator.geolocation.getCurrentPosition(geo.success, geo.error, geo.options);
-    }, false);
-    category.menuClick();
+    updateBtn.addEventListener('click', updateBtnHandler);
+    menuClick();
 })();

@@ -1,6 +1,8 @@
-import * as geo from './geoAPI.js';
+import Geolocation from './geoAPI.js';
 import * as common from './common.js';
 import * as recommend from './recommend.js';
+
+let content = document.querySelectorAll('.content')[0];
 
 function qnaClickHandler(evt) {
     evt.preventDefault();
@@ -18,31 +20,38 @@ function qnaClick() {
     }
 }
 
+function updateBtnHandler() {
+    const geoLocation = new Geolocation(0, 0);
+    geoLocation.updateLocation();
+}
+
 function locationNear() {
     if(location.hash !== '#near' && location.hash !== '') {
-        document.querySelectorAll('.content')[0].innerHTML = common.htmlContent.main;
-        document.querySelectorAll('#update')[0].addEventListener('click', _ => {
-            navigator.geolocation.getCurrentPosition(geo.success, geo.error, geo.options)
-        });
+        content.innerHTML = common.htmlContent.main;
+
+        const updateBtn = document.querySelectorAll('#update')[0];
+        updateBtn.addEventListener('click', updateBtnHandler);
     }
 }
 
 function searchKeyup(evt) {
+    const addressField = document.querySelectorAll('.address-field')[0];
+
     setTimeout(() => {
         if(evt.target.value.length >= 2 && !/[^ㄱ-ㅎㅏ-ㅣ가-힣0-9a-zA-Z\s-_]/.test(evt.target.value)) {
             recommend.addressRecommend(evt.target.value);
         }
-        if(!document.querySelectorAll('.address-field')[0].value.length) {
+        if(!addressField.value.length) {
             recommend.removeRecommendList();
         }
     }, 500);
 }
 
 const superHandler = {
-    qnaClick : qnaClick,
-    qnaClickHandler : qnaClickHandler,
-    locationNear : locationNear,
-    searchKeyup : searchKeyup,
+    qnaClick,
+    qnaClickHandler,
+    locationNear,
+    searchKeyup,
 };
 
-export {superHandler}
+export default superHandler;

@@ -1,4 +1,6 @@
-let addressText = "";
+import Address from './address.js';
+
+let addressText = new Address("");
 
 function removeRecommendList() {
     const searchResult = document.querySelectorAll('.search-results')[0];
@@ -8,7 +10,6 @@ function removeRecommendList() {
 }
 
 function initRecommendAddr(results) {
-    addressText = "";
     removeRecommendList();
     let search_res = document.createElement('div');
     search_res.classList.add('search-results');
@@ -38,7 +39,7 @@ function notFoundAddress(parent, errorMsg) {
     parent.appendChild(listEl);
 }
 
-function createRecommendEl(parent, data) {
+function createRecommendEl(parent, data) {    
     data.forEach((val, key) => {
         let listEl = document.createElement('li');
         let anchorEl = document.createElement('a');
@@ -47,7 +48,7 @@ function createRecommendEl(parent, data) {
             const searchResult = document.querySelectorAll('.search-results')[0];
             document.querySelectorAll('.address-field')[0].value = val;
             searchResult.remove();
-            addressText = key.split(' ').filter((el, idx) => idx <= 2).join(' ');
+            addressText.updateAddressTxt(key.split(' ').filter((el, idx) => idx <= 2).join(' '));
         }, false);
         listEl.appendChild(anchorEl);
         parent.appendChild(listEl);
@@ -65,6 +66,7 @@ async function addressRecommend(textData) {
     })
     .then(res => res.json());
     
+    addressText.updateAddressTxt(textData);
     initRecommendAddr(result.results);
 }
 
