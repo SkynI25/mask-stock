@@ -92,7 +92,7 @@ function addNewElement(storeDatas, index) {
     return newElement;
 }
 
-function sortingDataByType(data) {
+function sortingDataByType(data, geo) {
     const sortType = document.querySelectorAll('.sort-type')[0];
     
     let onSaleStores = data.stores.filter(s => {
@@ -101,7 +101,7 @@ function sortingDataByType(data) {
     if(sortType && document.querySelectorAll('#stock')[0].checked) {
         data.stores = util.sortByStock(onSaleStores);
     } else if(sortType && document.querySelectorAll('#distance')[0].checked) {
-        data.stores = util.sortByDistance(onSaleStores);
+        data.stores = util.sortByDistance(onSaleStores, geo);
     } else {
         data.stores = onSaleStores;
     }
@@ -109,8 +109,8 @@ function sortingDataByType(data) {
     return data;
 }
 
-function addStores(result) {
-    const storeDatas = sortingDataByType(result);
+function addStores(result, geo) {
+    const storeDatas = sortingDataByType(result, geo);
     const searchResult = document.querySelectorAll('.content .pharmacy-total h2')[0];
     let pharmacyCount = searchResult.textContent + ' 총 ' + storeDatas.count + '개 지점';
     pharmacyCount += `\n(현재 : ${util.isAvailableStock(storeDatas.stores)}개 지점 보유중)`

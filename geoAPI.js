@@ -1,34 +1,32 @@
-import * as maskStore from  "./maskStoreEl.js";
-import * as common from "./common.js";
+import * as util from './util.js';
 
-let lat = 0;
-let lng = 0;
+const Geolocation = (function() {
+    const geoProps = new WeakMap();
 
-let options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-};
+    class Geolocation {
+        constructor(lat, lng) {
+            geoProps.set(this, {lat, lng});
+        }
+        get userLocation() {
+            return geoProps.get(this);
+        }
+        set userLocation({lat, lng}) {
+            if(isNaN(Number(lat)) || isNaN(Number(lng))) {
+                throw new Error(`Invalid location input ${lat, lng}`);
+            }
+            this.userLocation.lat = lat;
+            this.userLocation.lng = lng;
+        }
+        setLocation(obj) {
+            this.userLocation = obj;
+        }
+        
+        updateLocation() {
+            navigator.geolocation.getCurrentPosition(pos => util.success(pos, this), util.error, util.options);
+        }
+    }
 
-async function success(pos) {
-    let crd = pos.coords;
-    lat = crd.latitude;
-    lng = crd.longitude;
-    
-    let selectBox = document.querySelectorAll('#distance-rad')[0];
-    let distnace = selectBox.options[selectBox.selectedIndex].value
+    return Geolocation;
+})();
 
-    maskStore.removeStores();
-    common.loadingBar.style.visibility = 'visible';
-    let result = await fetch(`
-    https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=${crd.latitude.toFixed(6)}&lng=${crd.longitude.toFixed(6)}&m=${distnace}`)
-    .then(res => res.json());
-    maskStore.addStores(result);
-    common.loadingBar.style.visibility = 'hidden';
-}
-
-function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-export {lat, lng, success, error, options}
+export default Geolocation;
