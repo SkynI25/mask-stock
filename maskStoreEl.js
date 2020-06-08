@@ -73,18 +73,75 @@ function addNewElement(storeDatas, index) {
     newUpdateDate.textContent = `업데이트 시간 : ${util.calcTime(storeDatas.stores[index].created_at)}전`;
     newUpdateDate.classList.add(common.classType.updateDate);
 
+    let div4Map = document.createElement('div');
+    let flexArea = document.createElement('div');
     let newAddr = document.createElement('p');
     let addrLink = document.createElement('a');
+    let caretDown = document.createElement('i');
+    let mapArea = document.createElement('div');
+    let naverMap = document.createElement('div');
+    let seeBigMap = document.createElement('a');
     addrLink.textContent = storeDatas.stores[index].addr;
-    addrLink.href = `https://search.naver.com/search.naver?ie=UTF-8&query=${encodeURI(storeDatas.stores[index].addr)}`;
-    addrLink.target = `_blank`
+    addrLink.addEventListener('click', function(evt) {
+        evt.preventDefault();
+    })
+    seeBigMap.href = `https://search.naver.com/search.naver?ie=UTF-8&query=${encodeURI(storeDatas.stores[index].addr)}`;
+    seeBigMap.target = `_blank`;
+    seeBigMap.addEventListener('click', function(evt) {
+        evt.stopPropagation();
+    })
     addrLink.classList.add(common.classType.addrLinkClass);
+
+    div4Map.setAttribute('aria-expanded', false);
+    div4Map.classList.add('map-trigger');
+    flexArea.classList.add('map-trigger__flex-Area');
+    caretDown.classList.add('fas', 'fa-caret-down', 'fa-2x', 'flip-normal');
+    
+    let id = index === 0 ? `map` : `map${index+1}`;
+    naverMap.id = id;
+    naverMap.classList.add('map-trigger__map');
+    seeBigMap.classList.add('map-trigger__mapText');
+    seeBigMap.textContent = "웹에서 검색하기";
     newAddr.appendChild(addrLink);
+    flexArea.appendChild(newAddr);
+    flexArea.appendChild(caretDown);
+    div4Map.appendChild(flexArea);
+    mapArea.appendChild(naverMap);
+    mapArea.appendChild(seeBigMap);
+    mapArea.classList.add('hide');
+    div4Map.appendChild(mapArea);
+    flexArea.addEventListener('click', () => {
+        const isExpanded = div4Map.getAttribute('aria-expanded') === "false" ? false : true;
+        if(isExpanded) {
+            caretDown.classList.add('flip-reverse');
+            caretDown.classList.remove('flip-normal');
+            div4Map.setAttribute('aria-expanded', false);
+            mapArea.classList.toggle('hide');
+        } else {
+            if(!caretDown.classList.contains('flip-normal')) {
+                caretDown.classList.add('flip-normal');
+            }
+            if(caretDown.classList.contains('flip-reverse')) {
+                caretDown.classList.remove('flip-reverse');
+            }
+            mapArea.classList.toggle('hide');
+            div4Map.setAttribute('aria-expanded', true);
+            const map = new naver.maps.Map(id, {
+                center: new naver.maps.LatLng(storeDatas.stores[index].lat, storeDatas.stores[index].lng),
+                zoom: 15
+            });
+            
+            new naver.maps.Marker({
+                position: new naver.maps.LatLng(storeDatas.stores[index].lat, storeDatas.stores[index].lng),
+                map: map
+            });
+        }
+    });
 
     newStoreHeader.appendChild(newStoreName);
     newStoreHeader.appendChild(newUpdateDate);
     newElement.appendChild(newStoreHeader);
-    newElement.appendChild(newAddr);
+    newElement.appendChild(div4Map);
 
     let newMaskContent = addMaskContent(storeDatas, index);
     newElement.appendChild(newMaskContent);

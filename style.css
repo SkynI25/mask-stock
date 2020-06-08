@@ -204,11 +204,11 @@ input.radio {
     padding-left: 10px;
     font-weight: bold;
     font-size: 12px;
-    color: #4169E1;
+    color: #419BED;
 }
 
 .pointout {
-    color: #4169E1;
+    color: #419BED;
     font-size: 18px;
 }
 
@@ -323,6 +323,84 @@ input.radio {
     float: left;
 }
 
+.map-trigger__flex-Area {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.map-trigger i {
+    margin-left: 10px;
+}
+
+@keyframes flipOn {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes flipReverse {
+    from {
+        transform: rotate(180deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.map-trigger[aria-expanded="true"] .flip-normal {
+    animation: flipOn 0.5s;
+    -webkit-transform:rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.flip-reverse {
+    animation: flipReverse 0.5s;
+}
+
+.map-trigger__flex-Area+div {
+    position: relative;
+    width: 490px;
+    height: 210px;
+    margin-bottom: 20px;
+    transition: height .4s;
+}
+
+.map-trigger__flex-Area+div.hide {
+    position: relative;
+    height: 0px;
+    margin-bottom: 0px;
+    transition: height .4s;
+}
+
+.map-trigger__map {
+    display: inline-block;
+    width: 75%;
+    height: 100%;
+}
+
+.map-trigger__mapText {
+    display: inline-block;
+    margin: 0;
+    color: #419BED;
+    font-size: 14px;
+    margin-left: 13px;
+    text-decoration: none;
+    position: absolute;
+    height: 20px;
+    top: calc(100% - 20px);
+}
+
+.map-trigger__flex-Area+div.hide .map-trigger__mapText {
+    visibility: hidden;
+}
+
 .mask-current {
     width: 20px;
     float: left;
@@ -431,6 +509,21 @@ input.radio {
     }
 }
 
+@media (max-width: 510px) {
+    .map-trigger__flex-Area+div {
+        width: 400px !important;
+        height: 190px !important;
+        margin-bottom: 40px !important;
+    }
+    .map-trigger__flex-Area+div.hide {
+        height: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    .map-trigger__mapText {
+        font-size: 12px;
+        margin: 13px 0 3px 2px !important;
+    }
+}
 
 @media (max-width: 590px) {
     p {
@@ -503,6 +596,17 @@ input.radio {
     }
     .faq-list li a .q-sign[aria-expanded="true"] {
         padding-bottom: 15px !important;
+    }
+}
+
+@media (max-width: 710px) {
+    .map-trigger__flex-Area+div {
+        margin-bottom: 50px;
+    }
+    .map-trigger__mapText {
+        display: block;
+        position: static;
+        margin: 17px 0 10px 3px;
     }
 }
 
