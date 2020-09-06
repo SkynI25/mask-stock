@@ -67,7 +67,10 @@ const htmlContent = {
         </div>
     </div>
     <ul class="pharmacy-list">
-        <p>현재 주변의 마스크 판매처를 찾으시려면 위에서 거리를 선택 후 업데이트 버튼을 클릭해주세요.
+        <h2>안내말씀 드립니다.</h2>
+        <p>현재 마스크 재고 API가 운영 중단 됨에 따라 현 서비스는 운영되지 않고 있습니다.
+            불편함을 드려 죄송합니다.</p>
+        <p>추후에 더 나은 서비스로 다시 찾아뵙겠습니다.</p>
     </ul>
     `,
     faq: `
@@ -183,10 +186,16 @@ const htmlContent = {
     `,
     search : `
     <div class="address-info">
-<h3>해당 구, 동내에 존재하는 판매처 목록을 검색합니다.</h3>
-<input class="address-field" placeholder="예) 한누리대로 411, 국립중앙박물관, 상암동 1595"><button id="search-button">검색</button>
-</div>
-    `
+        <h3>해당 구, 동내에 존재하는 판매처 목록을 검색합니다.</h3>
+        <input class="address-field" placeholder="예) 한누리대로 411, 국립중앙박물관, 상암동 1595"><button id="search-button">검색</button>
+    </div>
+    <div class="service-noti">
+        <h2>안내말씀 드립니다.</h2>
+        <p>현재 마스크 재고 API가 운영 중단 됨에 따라 현 서비스는 운영되지 않고 있습니다.
+            불편함을 드려 죄송합니다.</p>
+        <p>추후에 더 나은 서비스로 다시 찾아뵙겠습니다.</p>
+    </div>
+`
 }
 
 export {classType, elementType, loadingBar, htmlContent};

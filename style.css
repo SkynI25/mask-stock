@@ -199,6 +199,10 @@ input.radio {
     clear: both;
 }
 
+.pharmacy-total {
+    display: none;
+}
+
 .notice {
     padding-top:10px;
     padding-left: 10px;
@@ -257,7 +261,13 @@ input.radio {
 
 .address-info {
     margin: 20px 0;
+    display: none;
 }
+
+.service-noti p {
+    font-weight: bold;
+    font-size: 17px;
+} 
 
 .address-field {
     width:335px;
